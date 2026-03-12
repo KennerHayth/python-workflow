@@ -21,7 +21,7 @@ class TaskState(Enum):
     FAILED = auto()
 
 
-# use this class to define a new function
+# use this class to define a new script process within the workflow
 class Function:
     def __init__(self,name,dependencies,script):
         self.name = name
@@ -30,6 +30,7 @@ class Function:
         self.script = script
         self.processor = None
 
+# is the script ready to run? how about its dependancies?
     def can_run(self):
         for dep in self.dependencies:
             if dep.status == TaskState.PENDING or dep.status == TaskState.RUNNING:
@@ -41,6 +42,7 @@ class Function:
         print(f"dependancies for {self.name} are all complete.")
         return True
 
+# run the script. double checks that it starts as pending
     def start(self):
         print("attempting start")
         if self.status == TaskState.PENDING:
@@ -50,6 +52,7 @@ class Function:
         self.status = TaskState.RUNNING
         print(f"{self.name} has started")
 
+#update what the status of the running process is 
     def update(self):
         if self.status != TaskState.RUNNING:
             return
@@ -80,7 +83,7 @@ current_task= {}
 # Number of task allowed to run at one time
 MAX_TASK = 5
 
-# main processed used to handle the entire workflow
+# main processed used to handle the entire workflow using the features provided by the class
 def run_workflow(task_list):
     while any(t.status in [TaskState.PENDING, TaskState.RUNNING] for t in task_list):
         
