@@ -45,7 +45,7 @@ class Function:
 # run the script. double checks that it starts as pending
     def start(self):
         print("attempting start")
-        if self.status == TaskState.PENDING:
+        if self.status != TaskState.PENDING:
             return
         self.processor = subprocess.Popen([sys.executable, self.script])
         print("process attempted")
