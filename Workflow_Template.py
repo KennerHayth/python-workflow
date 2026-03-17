@@ -47,7 +47,7 @@ class Function:
         print("attempting start")
         if self.status == TaskState.PENDING:
             return
-        self.processor = subprocess.Popen(["sys.executable", self.script])
+        self.processor = subprocess.Popen([sys.executable, self.script])
         print("process attempted")
         self.status = TaskState.RUNNING
         print(f"{self.name} has started")
