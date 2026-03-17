@@ -38,7 +38,8 @@ class Function:
                 return False
             if dep.status == TaskState.FAILED:
                 self.status = TaskState.FAILED
-                print(rf"{self.name} can not run. {dep.name} has failed")    
+                print(rf"{self.name} can not run. {dep.name} has failed")   
+                return False
         print(f"dependancies for {self.name} are all complete.")
         return True
 
